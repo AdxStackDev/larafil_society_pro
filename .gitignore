@@ -5,23 +5,49 @@
 .env.production
 .phpactor.json
 .phpunit.result.cache
+Homestead.json
+Homestead.yaml
+Thumbs.db
+_ide_helper.php
+
+# IDEs & editors
 /.codex
 /.cursor/
 /.idea
+/.kiro
 /.nova
 /.phpunit.cache
 /.vscode
 /.zed
+
+# Composer & PHP
 /auth.json
+/vendor
+
+# Node
 /node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite
 /public/build
+vite.config.js.timestamp-*
+
+# Laravel runtime
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
 /storage/*.key
+/storage/logs/
 /storage/pail
-/vendor
-_ide_helper.php
-Homestead.json
-Homestead.yaml
-Thumbs.db
+
+# Filament published assets (generated, not source)
+/public/css/filament
+/public/js/filament
+/public/fonts/filament
+
+# SQLite databases and WAL/SHM sidecar files
+/database/*.sqlite
+/database/*.sqlite-shm
+/database/*.sqlite-wal
