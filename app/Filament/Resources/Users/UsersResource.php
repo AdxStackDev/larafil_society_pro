@@ -5,9 +5,13 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\Pages\CreateUsers;
 use App\Filament\Resources\Users\Pages\EditUsers;
 use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Filament\Resources\Users\Pages\ViewUsers;
+
 use App\Filament\Resources\Users\Schemas\UsersForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
+
 use App\Models\User;
+
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -47,6 +51,7 @@ class UsersResource extends Resource
             'index' => ListUsers::route('/'),
             'create' => CreateUsers::route('/create'),
             'edit' => EditUsers::route('/{record}/edit'),
+            'view' => ViewUsers::route('/{record}'),
         ];
     }
 

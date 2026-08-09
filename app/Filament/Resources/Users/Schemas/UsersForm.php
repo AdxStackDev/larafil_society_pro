@@ -19,12 +19,12 @@ class UsersForm
                     ->email()
                     ->required()
                     ->maxLength(255)
-                    ->unique(ignoreRecord: true), // Fixes the "email already taken" error when saving edits
+                    ->unique(ignoreRecord: true),
                 
                 TextInput::make('password')
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state)) // Keeps original password if left blank
-                    ->required(fn (string $context): bool => $context === 'create') // Only required when creating a new user
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
                     ->maxLength(255),
             ]);
     }
