@@ -11,16 +11,21 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+use Filament\Tables\Columns\TextColumn;
+
+
 class UsersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('email'),
+                TextColumn::make('password'),
             ])
             ->filters([
-                TrashedFilter::make(),
+                TrashedFilter::make('name'),
             ])
             ->recordActions([
                 ViewAction::make(),

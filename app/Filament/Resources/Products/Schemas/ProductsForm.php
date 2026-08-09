@@ -13,7 +13,7 @@ class ProductsForm
             ->components([
                 TextInput::make('name')->required()->maxLength(255),                
                 TextInput::make('price')->required()->maxLength(255),
-                TestInput::make('quantity')->maxLength(255),
+                TextInput::make('quantity')->maxLength(255),
                 
             ]);
     }

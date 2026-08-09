@@ -11,13 +11,17 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+use Filament\Tables\Columns\TextColumn;
+
 class ProductsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('price'),
+                TextColumn::make('quantity'),
             ])
             ->filters([
                 TrashedFilter::make(),
