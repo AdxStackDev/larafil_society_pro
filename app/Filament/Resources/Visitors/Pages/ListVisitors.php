@@ -6,6 +6,8 @@ use App\Filament\Resources\Visitors\VisitorsResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
+use App\Filament\Resources\Visitors\Widgets\Visitors as VisitorsChart;
+
 class ListVisitors extends ListRecords
 {
     protected static string $resource = VisitorsResource::class;
@@ -16,4 +18,12 @@ class ListVisitors extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            VisitorsChart::class,
+        ];
+    }
+        
 }

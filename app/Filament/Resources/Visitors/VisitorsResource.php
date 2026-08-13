@@ -20,6 +20,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Filament\Resources\Visitors\Widgets\Visitors as VisitorsChart;
+
 class VisitorsResource extends Resource
 {
     protected static ?string $model = Visitors::class;
@@ -62,4 +64,12 @@ class VisitorsResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    public static function getWidgets(): array
+    {
+        return [
+            VisitorsChart::class,
+        ];
+    }
+
 }
