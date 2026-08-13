@@ -15,21 +15,22 @@ class Visitors extends ChartWidget
     protected function getData(): array
     {
         $data = Trend::model(Guest::class)
+            ->dateColumn('arrival')
             ->between(
-                start: now()->startOfMonth(),
+                start: now()->startOfYear(),
                 end: now()->endOfMonth(),
             )
-            ->perDay()
-            ->count();        
-        
+            ->perMonth()
+            ->count();
+
         return [
-            'datasets' => [ 
+            'datasets' => [
                 [
                     'label' => 'Visitors Count',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date),
+            'labels' => $data->map(fn (TrendValue $value) => \Carbon\Carbon::parse($value->date)->format('M Y')),
         ];            
 
     }
