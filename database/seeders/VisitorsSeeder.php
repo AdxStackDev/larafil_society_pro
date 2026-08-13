@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Visitor;
+use App\Models\Visitors;
 
 class VisitorsSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class VisitorsSeeder extends Seeder
      */
     public function run(): void
     {
-        Visitor::factory()->count(50)->create();        
+        Visitors::factory()->count(50)->create();        
     }
 }

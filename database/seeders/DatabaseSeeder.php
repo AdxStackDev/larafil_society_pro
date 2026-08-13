@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\VisitorsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'adx',
-            'email' => 'adx@yn.in',
-            'password' => Hash::make('12345'),
-        ]);
+        User::factory(10)->create();
+        $this->call(VisitorsSeeder::class);
+        // User::factory()->create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@yn.in',
+        //     'password' => Hash::make('12345'),
+        // ]);
     }
 }
