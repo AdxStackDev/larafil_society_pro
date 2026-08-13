@@ -51,3 +51,4 @@ vite.config.js.timestamp-*
 /database/*.sqlite
 /database/*.sqlite-shm
 /database/*.sqlite-wal
+/storage/time-machine
