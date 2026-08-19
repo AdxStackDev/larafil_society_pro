@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dynamic India Event Map</title>
+
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --text-color: #202124;
+      --muted-color: #5f6368;
+      --background-color: #f8f9fa;
+      --border-radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      color: var(--text-color);
+      background: var(--background-color);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 28px;
+    }
+
+    #map {
+      width: 100%;
+      height: 600px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .info-window {
+      min-width: 220px;
+      max-width: 280px;
+      padding: 6px;
+      font-family: Arial, sans-serif;
+    }
+
+    .info-window h3 {
+      margin: 0 0 8px;
+      color: var(--primary-color);
+      font-size: 18px;
+    }
+
+    .info-window p {
+      margin: 6px 0;
+      color: var(--muted-color);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      #map {
+        height: 500px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Live Events Across India</h1>
+
+    <div
+      id="map"
+      role="application"
+      aria-label="Interactive map showing events across India">
+    </div>
+  </main>
+
+  <script>
+    const events = [
+      {
+        title: "Tech Summit 2026",
+        city: "Bengaluru",
+        state: "Karnataka",
+        latitude: 12.9716,
+        longitude: 77.5946,
+        description: "Annual innovation and startup conference."
+      },
+      {
+        title: "Cultural Film Festival",
+        city: "Mumbai",
+        state: "Maharashtra",
+        latitude: 19.0760,
+        longitude: 72.8777,
+        description: "Screening of international independent films."
+      },
+      {
+        title: "National Food Expo",
+        city: "New Delhi",
+        state: "Delhi",
+        latitude: 28.6139,
+        longitude: 77.2090,
+        description: "Showcasing culinary diversity across states."
+      },
+      {
+        title: "AI & Robotics Workshop",
+        city: "Hyderabad",
+        state: "Telangana",
+        latitude: 17.3850,
+        longitude: 78.4867,
+        description: "Hands-on coding and hardware session."
+      },
+      {
+        title: "Heritage Art Exhibition",
+        city: "Jaipur",
+        state: "Rajasthan",
+        latitude: 26.9124,
+        longitude: 75.7873,
+        description: "Traditional Rajasthani block printing showcase."
+      }
+    ];
+
+    function createInfoWindowContent(event) {
+      return `
+        <article class="info-window">
+          <h3>${escapeHtml(event.title)}</h3>
+
+          <p>
+            <strong>Location:</strong>
+            ${escapeHtml(event.city)}, ${escapeHtml(event.state)}
+          </p>
+
+          <p>${escapeHtml(event.description)}</p>
+        </article>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function initMap() {
+      /*
+       * Fixed India-wide viewport.
+       *
+       * Do not use fitBounds() here because fitBounds() would calculate
+       * the viewport from the event markers and zoom into their area.
+       */
+      const map = new google.maps.Map(
+        document.getElementById("map"),
+        {
+          center: {
+            lat: 22.5,
+            lng: 82.5
+          },
+
+          // Use zoom: 4 for a wider India view.
+          zoom: 4,
+
+          // Allows the user to zoom out to level 3 if needed.
+          minZoom: 3,
+
+          // Prevents excessive zooming in.
+          maxZoom: 18,
+
+          /*
+           * Approximate navigable bounds around India.
+           * This restricts panning but does not create an exact
+           * India-shaped border.
+           */
+          restriction: {
+            latLngBounds: {
+              north: 37.5,
+              south: 6.0,
+              west: 67.5,
+              east: 98.0
+            },
+            strictBounds: false
+          },
+
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: true,
+          gestureHandling: "greedy"
+        }
+      );
+
+      const infoWindow = new google.maps.InfoWindow();
+
+      events.forEach((event) => {
+        const marker = new google.maps.Marker({
+          position: {
+            lat: event.latitude,
+            lng: event.longitude
+          },
+          map,
+          title: event.title,
+          animation: google.maps.Animation.DROP
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.setContent(createInfoWindowContent(event));
+
+          infoWindow.open({
+            map,
+            anchor: marker
+          });
+        });
+      });
+    }
+  </script>
+
+  <!-- Replace YOUR_NEW_API_KEY with your restricted Google Maps API key -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBE0OWD52DmYxHlFa-bBOW_oAiuXh3n5kA&callback=initMap">
+  </script>
+</body>
+</html>

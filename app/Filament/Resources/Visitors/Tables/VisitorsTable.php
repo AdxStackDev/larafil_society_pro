@@ -10,8 +10,11 @@ use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\Filter;
 
+//for filter
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class VisitorsTable
@@ -29,6 +32,8 @@ class VisitorsTable
             ])
             ->filters([
                 TrashedFilter::make(),
+                Filter::make('arrival')
+                ->query(fn (Builder $query): Builder => $query->whereNotNull('arrival')),
             ])
             ->recordActions([
                 ViewAction::make(),

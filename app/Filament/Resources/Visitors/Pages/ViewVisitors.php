@@ -8,4 +8,5 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewVisitors extends ViewRecord
 {
     protected static string $resource = VisitorsResource::class;
+    
 }
